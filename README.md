@@ -34,8 +34,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 2. Download the code
 
 ```bash
-git clone git@github.com:SamLau95/gmis-flask-reddit.git
-cd gmis-flask-reddit
+git clone git@github.com:dstl-lab/flask-reddit-demo.git
+cd flask-reddit-demo
 ```
 
 3. Create the virtual environment and install dependencies
