@@ -88,12 +88,19 @@
 
     <main class="container">
       <ul>
-        {% for link in links %}
+        {% for link in links %} {% if not link.hidden %}
         <li>
           <div class="votes">
-            <button class="up">▲</button>
+            <a href="{{ url_for('upvote', post_id = loop.index0) }}">
+              <button class="up">▲</button>
+            </a>
             <div class="score" data-score>{{ link.score }}</div>
-            <button class="down">▼</button>
+            <a href="{{ url_for('downvote', post_id = loop.index0) }}">
+              <button class="down">▼</button>
+            </a>
+            <a href="{{ url_for('hide', post_id=loop.index0) }}">
+              <button class="hide">Hide</button>
+            </a>
           </div>
           <div class="content">
             <p class="title">
@@ -110,8 +117,58 @@
             >
           </div>
         </li>
-        {% endfor %}
+        {% endif %} {% endfor %}
       </ul>
+
+      <div>
+        {% if error is defined %}
+        <p style="color: red">{{ error }}</p>
+        {% endif %}
+
+        <form action="/add" method="POST">
+          <input type="text" name="title" placeholder="Post title" />
+          <input type="url" name="url" placeholder="Post URL" />
+          <button type="submit">Add Post</button>
+        </form>
+      </div>
+
+      <div>
+        <ul>
+          {% for link in links %} {% if link.hidden %}
+          <li>
+            <div class="votes">
+              <a href="{{ url_for('upvote', post_id = loop.index0) }}">
+                <button class="up">▲</button>
+              </a>
+              <div class="score" data-score>{{ link.score }}</div>
+              <a href="{{ url_for('downvote', post_id = loop.index0) }}">
+                <button class="down">▼</button>
+              </a>
+              <a href="{{ url_for('unhide', post_id=loop.index0) }}">
+                <button class="hide">Unhide</button>
+              </a>
+            </div>
+            <div class="content">
+              <p class="title">
+                <a
+                  href="{{ link.url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ link.title }}</a
+                >
+              </p>
+              <a
+                class="url"
+                href="{{ link.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ link.url }}</a
+              >
+            </div>
+          </li>
+          {% endif %} {% endfor %}
+        </ul>
+      </div>
     </main>
   </body>
 </html>
