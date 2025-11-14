@@ -121,6 +121,7 @@
       </ul>
 
       <div>
+        <h2>Create New Post</h2>
         {% if error is defined %}
         <p style="color: red">{{ error }}</p>
         {% endif %}
@@ -134,6 +135,7 @@
 
       <div>
         <ul>
+          <h2>Hidden Posts</h2>
           {% for link in links %} {% if link.hidden %}
           <li>
             <div class="votes">
